@@ -32,7 +32,7 @@ const handleInput = (input) => {
 readl.on('line', handleInput);
 
 process.on('SIGINT', () => {
-    console.log('Bye!');
-    rl.close();
+    console.log('\nBye!');
+    readl.close();
     process.exit(0);
 });
