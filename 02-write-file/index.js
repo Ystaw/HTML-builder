@@ -34,5 +34,7 @@ readl.on('line', handleInput);
 process.on('SIGINT', () => {
     console.log('\nBye!');
     readl.close();
-    process.exit(0);
+    writeStream.end(() => {
+        process.exit(0);
+    });
 });
