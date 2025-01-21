@@ -15,9 +15,7 @@ console.log('Hello! Enter something! Or type "exit" to quit.');
 
 const handleInput = (input) => {
     if (input.trim().toLowerCase() === 'exit') {
-        console.log('Bye!');
         readl.close();
-        process.exit(0);
     } else {
         writeStream.write(`${input}\n`, (err) => {
             if (err) {
@@ -32,9 +30,14 @@ const handleInput = (input) => {
 readl.on('line', handleInput);
 
 process.on('SIGINT', () => {
-    console.log('\nBye!');
     readl.close();
+});
+
+readl.on('close', () => {
+    console.log('Bye!');
     writeStream.end(() => {
-        process.exit(0);
+        setTimeout(() => {
+            process.exit(0);
+        }, 100);
     });
 });
